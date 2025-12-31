@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 New Year 2026 Special</title>
+    
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@600;700&family=Courier+Prime:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Your CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ================= BACKGROUND ELEMENTS ================= -->
+    <div id="snow-container"></div>
+    <div class="hearts"></div>
+    <div class="balloons"></div>
+    <div id="snowman">⛄</div>
+
+    <!-- ================= LOCK SCREEN ================= -->
+    <div id="lock-screen">
+        <div class="security-card">
+            <div class="icon-lock anim-float">🔐</div>
+            <h2 class="sec-anim delay-0">SECURITY Check Rukoo😼 </h2>
+            <p class="sec-anim delay-1">koi anjan enter krne ki kosis😤</p>
+            <p class="sec-anim delay-2">Question: aaj kite din ho chuke he bacha (BFF)?</p>
+            <input type="text" id="friendship-answer" placeholder="Enter Days" class="sec-anim delay-3">
+            <p id="error-msg" class="glitch-text sec-anim delay-4"></p>
+            <button onclick="checkAnswer()" class="btn-security sec-anim delay-5">SABAS AAIYE😉</button>
+        </div>
+    </div>
+
+    <!-- ================= TOP HEADER (HIDDEN INITIALLY) ================= -->
+    <div id="top-header" class="top-header hidden">
+        <div class="wave-text">🎊 Happy New Year 2026! 🎊</div>
+        <div class="live-timer" id="header-timer">(Loading...)</div>
+    </div>
+
+    <!-- ================= MUSIC PLAYER (HIDDEN INITIALLY) ================= -->
+    <div id="music-player" class="music-player hidden" onclick="toggleMusic()">
+        <span class="disk">💿</span>
+        <span>Music</span>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ================= WIPE SCREEN TRANSITION ================= -->
+    <div id="wipe-screen">
+        <div id="wipe-text">Byiii 2025🥳🥳...</div>
+    </div>
+
+    <!-- ================= MAIN CONTENT (HIDDEN INITIALLY) ================= -->
+    <div id="main-content" class="main-container hidden">
+
+        <!-- ========== PAGE 1: WELCOME ========== -->
+        <div id="p1" class="page active">
+            <h1 class="welcome-title">Welcome welcome😗</h1>
+            <div class="card glass-effect spin-in-right">
+                <span class="spin-line-left">Chal ek test deti hai pehle😗...</span>
+                <span class="spin-line-left">Foundation se sabse pehle kya lagta hai?💄</span>
+                <button onclick="showMakeupQuiz()" class="btn-primary anim-bounce-in">bta ?🎯</button>
+            </div>
+        </div>
+
+        <!-- ========== PAGE 2: ENVELOPE & CONTRACT ========== -->
+        <div id="p2" class="page">
+            <!-- Envelope View -->
+            <div id="envelope-view" onclick="openEnvelope()">
+                <div class="envelope">
+                    <div class="flap"></div>
+                    <div class="pocket"></div>
+                    <div class="letter-preview">📜 Click to Open</div>
+                </div>
+                <p class="click-hint">👆esme dekh !</p>
+            </div>
+
+            <!-- Contract View -->
+            <div id="contract-view" class="hidden">
+                <div class="legal-paper glass-effect">
+                    <div class="stamp-seal">TOP SECRET</div>
+                    <h2>📜 FRIENDSHIP CONTRACT 📜</h2>
+                    <p><b>Date:</b> 27 Dec 2025</p>
+                    <p><b>Between:</b> Oggy & meiyo</p>
+                    <br>
+                    <p><b>Terms & Conditions:</b></p>
+                    <ol class="clauses-list">
+                        <li>meri bat hmesa mani pde gi 🐘</li>
+
+                        <li>Roj Ek Mst Sa Gana Sunana mekoo 😂</li>
+
+                        <li>mere se kbhi gusse me bat ni kre gi😤</li>
+
+                        <li>Baki next year milna posible hona chiye😛 </li>
+
+                        <li>AND last khud ka dhyan rakhe gi hihi Choti Bachi Sugli😗😛</li>
+                    </ol>
+                    <br>
+                    <div class="signature-area">
+                        <p><b>Sign with Thumbprint:</b></p>
+                        <button onclick="initiateContractSign()" class="btn-primary">Sign krna must he</button>
+                        <div id="thumb-print" class="hidden">NITA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGE 3: MAP ========== -->
+        <div id="p3" class="page">
+            <div class="map-card glass-effect">
+                <h2 style="color: var(--primary); font-family: 'Dancing Script', cursive;">Our Journey 🗺️</h2>
+                <p class="map-message" id="distance-msg">Calculating distance...</p>
+                <div id="real-map"></div>
+                <button onclick="startRealMapJourney()" class="btn-primary">Start Journey ✈️</button>
+            </div>
+        </div>
+
+        <!-- ========== PAGE 4: MOOD DETECTOR ========== -->
+        <div id="p4" class="page">
+            <div class="pop-box float-anim">
+                <h2>Aaj Kaisa Mood Hai? 🤔</h2>
+                <p>Tell me fast!</p>
+            </div>
+            <div class="mood-container">
+                <button class="mood-btn" onclick="handleMood('happy')">😁</button>
+                <button class="mood-btn" onclick="handleMood('sad')">😢</button>
+                <button class="mood-btn" onclick="handleMood('angry')">😡</button>
+            </div>
+        </div>
+
+        <!-- ========== PAGE 5: MEMORY STACK ========== -->
+        <div id="p5" class="page">
+            <div class="memory-stack-card glass-effect">
+                <div>
+                    <h2 style="color: white; font-family: 'Dancing Script', cursive; text-align: center; margin-bottom: 10px;">Our Memories 📸</h2>
+                    <div class="progress-indicator">
+                        <div id="memory-progress-bar"></div>
+                    </div>
+                    <p id="memory-counter" style="text-align: center;">Memory 1  / 20</p>
+                </div>
+
+                <div class="viewer-container" id="memory-viewer">
+                    <!-- Memory cards will be rendered here -->
+                </div>
+
+                <div style="text-align: center;">
+                    <button id="btn-prev" class="btn-secondary" onclick="prevMemory()" style="display: none;">⬅️ Previous</button>
+                    <button id="btn-next" class="btn-primary" onclick="nextMemory()">Next  ➡️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGE 6: ENHANCED 3D QUIZ ========== -->
+<div id="p6" class="page">
+    <div class="quiz-container glass-effect-3d">
+        <h2 class="quiz-title neon-glow">🎮 Quick Quiz Time! 💜</h2>
+        <div id="quiz-intro" class="quiz-intro">
+            <div class="intro-text">Chalo thoda test lete hain! 🧠✨</div>
+            <button class="btn-primary-3d" onclick="startQuiz()">Ready Ho Na? 😎</button>
+        </div>
+        <div id="quiz-content" class="hidden">
+            <!-- Question will appear here -->
+        </div>
+        <div class="quiz-score neon-glow" id="quiz-score">Score: 0/7 💖</div>
+        <div id="quiz-reaction" class="quiz-reaction hidden"></div>
+    </div>
+</div>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- Makeup Quiz Modal -->
+    <div id="makeup-modal" class="modal-overlay hidden">
+        <div class="card glass-effect">
+            <h2 style="color: var(--primary);">💄 Makeup Test 💄</h2>
+            <p>Foundation lagane se <b>pehle</b> kya lagta hai?</p>
+            <input type="text" id="makeup-input" class="custom-input" placeholder="Type answer...">
+            <p id="quiz-error-msg" class="inline-error hidden"></p>
+            <button onclick="checkMakeupAnswer()" class="btn-primary">Submit</button>
+        </div>
+    </div>
+
+    <!-- Contract Confirmation Modal -->
+    <div id="confirm-modal" class="modal-overlay hidden">
+        <div class="card glass-effect">
+            <h2 style="color: var(--primary);">⚠️ Confirm Signature</h2>
+            <p>Pakka sign karna hai?<br>Ye legal binding hai! 😜</p>
+            <button onclick="confirmContractAction(true)" class="btn-primary">Haan, Sign Karo! ✅</button>
+            <button onclick="confirmContractAction(false)" class="btn-secondary">Nahi, Ruko! ❌</button>
+        </div>
+    </div>
+
+    <!-- Moti Response Modal -->
+    <div id="moti-modal" class="modal-overlay hidden">
+        <div class="card glass-effect">
+            <h2 style="color: var(--primary);">🐘 Clause 1 Violation!</h2>
+            <p>agar tekoo <b>"MOTI"</b> bolu to! 😂<br>kya karogi?</p>
+            <button onclick="handleMotiResponse('gussa')" class="btn-primary">Gussa Aayi! 😡</button>
+            <button onclick="handleMotiResponse('happy')" class="btn-secondary">Khush Hui! 😁</button>
+            <button onclick="handleMotiResponse('chill')" class="btn-secondary">Chill Hai! 😎</button>
+        </div>
+    </div>
+
+    <!-- Generic Message Modal -->
+    <div id="msg-modal" class="modal-overlay hidden">
+        <div class="card glass-effect">
+            <h2 id="msg-title" style="color: var(--primary);">Title</h2>
+            <p id="msg-body">Message body...</p>
+            <button id="msg-btn" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <!-- ========== PAGE 7: EMOTIONAL LETTER REVEAL ========== -->
+<div id="p7" class="page">
+    <div class="letter-scene">
+        <!-- Floating Hearts -->
+        <div class="letter-hearts-bg"></div>
+        
+        <!-- Envelope (Initial State) -->
+        <div id="envelope-letter" class="envelope-letter" onclick="openLetter()">
+            <div class="envelope-front">
+                <div class="wax-seal">💌</div>
+                <div class="envelope-text">To: Nita 💖</div>
+            </div>
+            <div class="envelope-flap"></div>
+        </div>
+        
+        <!-- Letter Paper (Hidden Initially) -->
+        <div id="letter-paper" class="letter-paper hidden">
+            <div class="paper-content">
+                <div class="paper-header">
+                    <div class="decorative-line">✨ ═══ ❤️ ═══ ✨</div>
+                </div>
+                
+                <div class="letter-body">
+                    <p class="letter-greeting">Meri Pyari mahila mittrr NITA (Sugli😗😛), 💜</p>
+                    
+                    <p>hihi dhyn se padhna hsna nhi okii 🤭✨ ok suru krte he ab, kafi bate ho gyi....</p>
+                    
+                    <p> pta he jab mile the to socha nhi tha ki ite time tak hum friends reh paye ge, mile bhi to kese ek game se jaha roj nye log aate he. but unexpected hua i think iam lucky that's why you are my bff. bla bla bla boor to nhi ho rhi😂 soch ri hogi kita bolta he ye haha. </p>
+                    <p>but such ho bol ra hun hena ? bol to haan sugle...... chl age bolta hun. haan tu door he but distance apni jagha he, call text ita sb he to kbhi ye distace ka to mind me hi na aaya haha. ab bole gi ki bakwas krva lo bus isse hihi . sun le to tekoo to sunna hi pde ga 😂</p>
+                    <p>friend like's you is a blessing🤭🤭, haan gussa krti he kbhi kbhi suna bhi deti he mekoo but wo sb to sirf 5 minutes ka he 🤭 </p>
+                    
+                    <p>teri makeup skills se lekar,😃 life advice tak... sab kuch perfect hai!😃 💄✨ Tum literally ek queen ho... ARMY Queen! 👑💜</p>
+                    <p>haha i think boor kr ra hun mein at the end bus ita hi ki i hmesa ese hi happy happpy sugliiii si preety little baby bn ke rhe hahah</p>
+                                                          
+                    <p class="blessing-text">
+                        🌟 <strong>Meri Wishes & Blessings:</strong> 🌟<br>
+                        
+                        💄 Tumhari makeup artist journey sky-high jaye!<br>
+                        💜 BTS kabhi tumhe disappoint na kare!<br>
+                        😊 Hamesha khush raho, hamesha hasta raho!<br>
+                        ❤️ Humari dosti forever strong rahe!
+                    </p>
+                    
+                    <p>2026 mein bhi aise hi pagalpan karenge... roast karenge... hasenge... aur memories banayenge! 🎉✨</p>
+                    
+                    <p class="letter-closing">
+                        Hamesha tumhare saath! 🤝💖<br>
+                        Love you, bestie! 🥰
+                    </p>
+                    
+                    <div class="signature-section">
+                        <p class="from-text">From your BFF,</p>
+                        <p class="sign-instruction">👇 Click to sign 👇</p>
+                        <div class="signature-box" onclick="addSignature()">
+                            <span id="signature-placeholder">[ Signature Here ]</span>
+                            <canvas id="signature-canvas" class="hidden"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="paper-footer">
+                    <div class="decorative-line">✨ ═══ 💖 ═══ ✨</div>
+                    <button class="btn-primary-3d" onclick="changePage(7, 8)" style="margin-top: 20px;">
+                        Next Chapter ➡️✨
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Coffee Stain -->
+            <div class="coffee-stain"></div>
+        </div>
+    </div>
+    
+    <!-- Letter Background Music -->
+    <audio id="letterMusic" loop>
+        <source src="letter-music.mp3" type="audio/mpeg">
+    </audio>
+</div>
+
+<!-- ========== PAGE 8: VINTAGE CASSETTE PLAYER ========== -->
+<div id="p8" class="page">
+    <div class="cassette-scene">
+        <h2 class="cassette-title">Playlist 🎵💜</h2>
+        
+        <!-- Cassette Player -->
+        <div class="cassette-player">
+            <!-- Cassette Tape -->
+            <div class="cassette-body">
+                <div class="cassette-label">
+                    <div class="label-text" id="song-title">Loading...</div>
+                    <div class="label-artist" id="song-artist">Artist</div>
+                </div>
+                
+                <!-- Rotating Reels -->
+                <div class="reels-container">
+                    <div class="reel left-reel" id="left-reel">
+                        <div class="reel-center"></div>
+                    </div>
+                    <div class="reel right-reel" id="right-reel">
+                        <div class="reel-center"></div>
+                    </div>
+                </div>
+                
+                <!-- Tape Window -->
+                <div class="tape-window">
+                    <div class="tape-strip" id="tape-strip"></div>
+                </div>
+            </div>
+            
+            <!-- Player Controls -->
+            <div class="player-controls">
+                <button class="control-btn" onclick="previousSong()" title="Previous">⏮️</button>
+                <button class="control-btn play-btn" id="play-btn" onclick="togglePlay()" title="Play/Pause">▶️</button>
+                <button class="control-btn" onclick="nextSong()" title="Next">⏭️</button>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
+            <!-- Volume Control -->
+            <div class="volume-control">
+                <span>🔊</span>
+                <input type="range" min="0" max="100" value="70" id="volume-slider" onchange="changeVolume(this.value)">
+            </div>
+            
+            <!-- Song List -->
+            <div class="song-list">
+                <div class="song-list-title">📀 Playlist:</div>
+                <div id="song-items"></div>
+            </div>
+        </div>
+        
+        <!-- Next Button -->
+        <button class="btn-primary-3d" onclick="changePage(8, 9); setTimeout(initPage9, 500);">
+    Open 2026 Wishes 🎁
+</button>
+        <!-- Hidden Audio Player -->
+        <audio id="cassette-audio" ontimeupdate="updateProgress()" onended="nextSong()"></audio>
+    </div>
+</div>
+
+<!-- ========== PAGE 9: WISHES FOR 2026 ========== -->
+<div id="p9" class="page">
+    <div class="wishes-container">
+        <h2 class="wishes-title">🌟 2026 Wishes for You! 🌟</h2>
+        <p class="wishes-subtitle">yeha click kr! 💌</p>
+        
+        <div class="wishes-grid" id="wishes-grid">
+            <!-- Wish envelopes will be generated here -->
+        </div>
+        
+        <div class="wishes-progress">
+            <span id="wishes-opened">0</span> / <span id="wishes-total">6</span> Opened
+        </div>
+        
+  <button id="wishes-next-btn" class="btn-primary hidden"
+  onclick="changePage(9, 10); setTimeout(initPage10, 2600);">
+  Next Adventure ➡️
+</button>
+    </div>
+</div>
+
+<!-- ================= PAGE 10 (Canvas + GSAP) ================= -->
+<div id="p10" class="page">
+  <canvas id="p10-canvas"></canvas>
+
+ <button id="p10-skip" class="p10-skip-btn">Skip</button>
+<canvas id="p10-canvas"></canvas>
+
+</div>
+
+    <!-- ================= SCRIPTS ================= -->
+    <!-- Leaflet Map JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+    <!-- Your JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
